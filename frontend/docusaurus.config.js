@@ -12,7 +12,7 @@ const config = {
 
   // GitHub Pages configuration
   url: 'https://MuhammadAhmed-Professional.github.io', // GitHub username
-  baseUrl: '/hackathon-book/', // Repository name
+  baseUrl: '/hackathon-book/', // Repository name - Updated for correct deployment
   organizationName: 'MuhammadAhmed-Professional', // GitHub username
   projectName: 'hackathon-book', // Repository name
   deploymentBranch: 'gh-pages', // Branch for deployment
