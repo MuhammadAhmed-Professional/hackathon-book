@@ -27,6 +27,7 @@ jobs:
       run: |
         cd frontend
         npm ci
+        rm -rf build .docusaurus
         npm run build
 
     - name: Deploy to GitHub Pages
