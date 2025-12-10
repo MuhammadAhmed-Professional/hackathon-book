@@ -1,0 +1,65 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ "002-physical-ai-book", "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push to gh-pages branch
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: 002-physical-ai-book  # Checkout source branch, deploy to gh-pages
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0  # Fetch all history for proper deployment
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install and Build
+      run: |
+        cd frontend
+        npm ci
+        npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./frontend/build
+        publish_branch: gh-pages
+        cname: ${{ secrets.CUSTOM_DOMAIN }}  # Optional: if you have a custom domain
+
+    - name: Deployment Status
+      run: echo "Frontend deployed to GitHub Pages"
+
+  deploy-backend:
+    runs-on: ubuntu-latest
+    if: false  # Disable until backend hosting is configured
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy Backend to Railway/Render
+      run: |
+        echo "Configure backend deployment here"
+        echo "Options: Railway, Render, Vercel, AWS, Google Cloud"
+
+    # Example for Railway:
+    # - name: Deploy to Railway
+    #   uses: bervProject/railway-deploy@main
+    #   with:
+    #     railway_token: ${{ secrets.RAILWAY_TOKEN }}
+    #     service: backend
+
+    # Example for Render:
+    # - name: Deploy to Render
+    #   run: |
+    #     curl -X POST "https://api.render.com/deploy/srv-xxx?key=${{ secrets.RENDER_API_KEY }}"

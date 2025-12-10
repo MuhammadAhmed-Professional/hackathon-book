@@ -1,0 +1,426 @@
+/**
+ * Design Tokens - Physical AI Textbook Platform
+ *
+ * This file defines the foundational design system tokens used across all components.
+ * All components should reference these tokens instead of hardcoded values.
+ *
+ * Design Philosophy:
+ * - Semantic naming (what it means, not what it looks like)
+ * - Scalable system (8px base grid for spacing)
+ * - Accessible by default (WCAG AA compliant colors)
+ * - Dark mode ready (uses CSS custom properties)
+ */
+
+:root {
+  /* ============================================
+     COLOR PRIMITIVES
+     Raw color values - do not use directly in components
+     ============================================ */
+
+  /* Purple palette (Primary brand color) */
+  --color-purple-50: #faf5ff;
+  --color-purple-100: #f3e8ff;
+  --color-purple-200: #e9d5ff;
+  --color-purple-300: #d8b4fe;
+  --color-purple-400: #c084fc;
+  --color-purple-500: #a855f7;
+  --color-purple-600: #9333ea;
+  --color-purple-700: #7e22ce;
+  --color-purple-800: #6b21a8;
+  --color-purple-900: #581c87;
+
+  /* Blue palette (Interactive elements) */
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+
+  /* Green palette (Success states) */
+  --color-green-50: #f0fdf4;
+  --color-green-100: #dcfce7;
+  --color-green-200: #bbf7d0;
+  --color-green-300: #86efac;
+  --color-green-400: #4ade80;
+  --color-green-500: #22c55e;
+  --color-green-600: #16a34a;
+  --color-green-700: #15803d;
+  --color-green-800: #166534;
+  --color-green-900: #14532d;
+
+  /* Red palette (Error states) */
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  --color-red-800: #991b1b;
+  --color-red-900: #7f1d1d;
+
+  /* Orange/Amber palette (Warning states) */
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+
+  /* Gray palette (Neutral tones) */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* NVIDIA brand colors (for hardware badges) */
+  --color-nvidia-green: #76b900;
+  --color-nvidia-green-dark: #669900;
+
+  /* ============================================
+     SEMANTIC COLOR TOKENS
+     Use these in components
+     ============================================ */
+
+  /* Primary brand colors */
+  --color-primary: var(--color-purple-600);
+  --color-primary-hover: var(--color-purple-700);
+  --color-primary-active: var(--color-purple-800);
+  --color-primary-light: var(--color-purple-100);
+
+  /* Interactive colors */
+  --color-interactive: var(--color-blue-600);
+  --color-interactive-hover: var(--color-blue-700);
+
+  /* Feedback colors */
+  --color-success: var(--color-green-600);
+  --color-success-light: var(--color-green-100);
+  --color-warning: var(--color-amber-500);
+  --color-warning-light: var(--color-amber-100);
+  --color-error: var(--color-red-600);
+  --color-error-light: var(--color-red-100);
+  --color-info: var(--color-blue-500);
+  --color-info-light: var(--color-blue-100);
+
+  /* Text colors */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-700);
+  --color-text-muted: var(--color-gray-500);
+  --color-text-disabled: var(--color-gray-400);
+  --color-text-inverse: white;
+
+  /* Surface colors */
+  --color-surface-base: white;
+  --color-surface-raised: white;
+  --color-surface-overlay: white;
+
+  /* Background colors */
+  --color-background-base: white;
+  --color-background-alt: var(--color-gray-50);
+  --color-background-muted: var(--color-gray-100);
+
+  /* Border colors */
+  --color-border-light: var(--color-gray-200);
+  --color-border-base: var(--color-gray-300);
+  --color-border-strong: var(--color-gray-400);
+  --color-border-interactive: var(--color-primary);
+  --color-border-focus: var(--color-primary);
+
+  /* ============================================
+     GRADIENT TOKENS
+     ============================================ */
+
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #5a6fd8 0%, #6a4290 100%);
+
+  --gradient-success: linear-gradient(135deg, var(--color-green-500) 0%, var(--color-green-700) 100%);
+  --gradient-info: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-blue-700) 100%);
+  --gradient-warning: linear-gradient(135deg, var(--color-amber-500) 0%, var(--color-amber-700) 100%);
+
+  /* Skill-specific gradients */
+  --gradient-skill-explain: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --gradient-skill-summarize: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --gradient-skill-quiz: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --gradient-skill-output: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Tier gradients */
+  --gradient-tier-beginner: linear-gradient(135deg, var(--color-green-500) 0%, var(--color-green-700) 100%);
+  --gradient-tier-intermediate: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-blue-700) 100%);
+  --gradient-tier-advanced: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-purple-700) 100%);
+
+  /* ============================================
+     SPACING SCALE (8px base grid)
+     ============================================ */
+
+  --space-0: 0;
+  --space-1: 4px;    /* 0.25rem */
+  --space-2: 8px;    /* 0.5rem */
+  --space-3: 12px;   /* 0.75rem */
+  --space-4: 16px;   /* 1rem */
+  --space-5: 20px;   /* 1.25rem */
+  --space-6: 24px;   /* 1.5rem */
+  --space-8: 32px;   /* 2rem */
+  --space-10: 40px;  /* 2.5rem */
+  --space-12: 48px;  /* 3rem */
+  --space-16: 64px;  /* 4rem */
+  --space-20: 80px;  /* 5rem */
+  --space-24: 96px;  /* 6rem */
+
+  /* ============================================
+     TYPOGRAPHY SCALE (Major Third - 1.25 ratio)
+     ============================================ */
+
+  /* Font sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ============================================
+     SHADOWS
+     ============================================ */
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Colored shadows for gradients */
+  --shadow-primary: 0 8px 24px rgba(102, 126, 234, 0.4);
+  --shadow-primary-lg: 0 12px 32px rgba(102, 126, 234, 0.5);
+  --shadow-success: 0 4px 12px rgba(34, 197, 94, 0.3);
+  --shadow-error: 0 4px 12px rgba(239, 68, 68, 0.3);
+
+  /* ============================================
+     Z-INDEX SCALE
+     ============================================ */
+
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 9996;
+  --z-modal: 9997;
+  --z-floating-button: 9998;
+  --z-popover: 9999;
+  --z-tooltip: 10000;
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     ============================================ */
+
+  /* Durations */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+
+  /* Easing functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Combined transitions (most commonly used) */
+  --transition-fast: var(--duration-fast) var(--ease-in-out);
+  --transition-base: var(--duration-base) var(--ease-in-out);
+  --transition-slow: var(--duration-slow) var(--ease-in-out);
+
+  /* ============================================
+     BREAKPOINTS (for reference in JS)
+     Not usable in CSS, use @media queries directly
+     ============================================ */
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ============================================
+     COMPONENT-SPECIFIC TOKENS
+     ============================================ */
+
+  /* Floating Chat Button */
+  --chat-button-size: 64px;
+  --chat-button-size-mobile: 64px;  /* Maintain 64px for accessibility */
+
+  /* Chat Modal */
+  --chat-modal-width: 420px;
+  --chat-modal-height: 600px;
+  --chat-modal-border-radius: var(--radius-xl);
+
+  /* Input heights */
+  --input-height-sm: 36px;
+  --input-height-base: 44px;  /* WCAG compliant touch target */
+  --input-height-lg: 52px;
+
+  /* Button heights */
+  --button-height-sm: 36px;
+  --button-height-base: 44px;  /* WCAG compliant touch target */
+  --button-height-lg: 52px;
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+
+[data-theme='dark'] {
+  /* Text colors (inverted) */
+  --color-text-primary: var(--color-gray-50);
+  --color-text-secondary: var(--color-gray-300);
+  --color-text-muted: var(--color-gray-400);
+  --color-text-disabled: var(--color-gray-600);
+  --color-text-inverse: var(--color-gray-900);
+
+  /* Surface colors */
+  --color-surface-base: var(--color-gray-900);
+  --color-surface-raised: var(--color-gray-800);
+  --color-surface-overlay: var(--color-gray-800);
+
+  /* Background colors */
+  --color-background-base: var(--color-gray-900);
+  --color-background-alt: var(--color-gray-800);
+  --color-background-muted: var(--color-gray-700);
+
+  /* Border colors */
+  --color-border-light: var(--color-gray-700);
+  --color-border-base: var(--color-gray-600);
+  --color-border-strong: var(--color-gray-500);
+
+  /* Adjust gradients for dark mode */
+  --gradient-primary: linear-gradient(135deg, #5a6fd8 0%, #6a4290 100%);
+
+  /* Adjust shadows for dark mode (lighter) */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* Reduce all animations to instant */
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - HIGH CONTRAST MODE
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    /* Increase border widths */
+    --border-width-base: 2px;
+
+    /* Use stronger borders */
+    --color-border-base: var(--color-gray-900);
+    --color-border-strong: var(--color-gray-900);
+  }
+
+  [data-theme='dark'] {
+    --color-border-base: var(--color-gray-50);
+    --color-border-strong: white;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES (Optional convenience classes)
+   ============================================ */
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible (for custom focus styles) */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Truncate text with ellipsis */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

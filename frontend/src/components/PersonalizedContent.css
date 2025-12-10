@@ -1,0 +1,181 @@
+/* Personalized Content Component */
+.personalized-content {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.personalized-content-loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 14px;
+}
+
+/* Tier Badge */
+.content-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-tier-badge[data-tier="beginner"] {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.content-tier-badge[data-tier="intermediate"] {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+}
+
+.content-tier-badge[data-tier="advanced"] {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+}
+
+/* Hardware-Specific Section */
+.hardware-specific-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
+  border-left: 4px solid #6366f1;
+  border-radius: 8px;
+}
+
+[data-theme='dark'] .hardware-specific-section {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+}
+
+.hardware-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.hardware-section-header svg {
+  color: #6366f1;
+}
+
+.hardware-section-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+/* Hardware Badges */
+.hardware-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 0 8px 8px 0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hardware-badge.rtx {
+  background: linear-gradient(135deg, #76b900 0%, #669900 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(118, 185, 0, 0.3);
+}
+
+.hardware-badge.jetson {
+  background: linear-gradient(135deg, #76b900 0%, #669900 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(118, 185, 0, 0.3);
+}
+
+.hardware-content {
+  margin-top: 1rem;
+}
+
+/* Upgrade Suggestion */
+.upgrade-suggestion {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+}
+
+[data-theme='dark'] .upgrade-suggestion {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.12));
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.upgrade-suggestion svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #3b82f6;
+}
+
+.upgrade-suggestion strong {
+  display: block;
+  color: var(--ifm-font-color-base);
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.upgrade-suggestion p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.upgrade-suggestion a {
+  color: #3b82f6;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.upgrade-suggestion a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .personalized-content {
+    margin: 1.5rem 0;
+  }
+
+  .hardware-specific-section {
+    padding: 1.25rem;
+  }
+
+  .hardware-section-header h3 {
+    font-size: 16px;
+  }
+
+  .content-tier-badge {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  .upgrade-suggestion {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* Tier-Specific Styling */
+.personalized-content[data-tier="beginner"] .hardware-specific-section {
+  border-left-color: #10b981;
+}
+
+.personalized-content[data-tier="intermediate"] .hardware-specific-section {
+  border-left-color: #3b82f6;
+}
+
+.personalized-content[data-tier="advanced"] .hardware-specific-section {
+  border-left-color: #8b5cf6;
+}

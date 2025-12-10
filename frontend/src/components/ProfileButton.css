@@ -1,0 +1,127 @@
+/* Profile Button Styling */
+
+.profile-button-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-signin-link,
+.profile-signup-link {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.profile-signin-link {
+  color: var(--ifm-font-color-base);
+}
+
+.profile-signin-link:hover {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+.profile-signup-link {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.profile-signup-link:hover {
+  background-color: var(--ifm-color-primary-dark);
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.profile-trigger:hover {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+.profile-email {
+  color: var(--ifm-font-color-base);
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-icon {
+  font-size: 0.7rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 250px;
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 0.75rem;
+}
+
+.profile-dropdown:hover .profile-menu,
+.profile-dropdown:focus-within .profile-menu {
+  display: block;
+}
+
+.profile-menu-header {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  margin-bottom: 0.75rem;
+}
+
+.profile-menu-header strong {
+  display: block;
+  color: var(--ifm-font-color-base);
+  margin-bottom: 0.25rem;
+}
+
+.profile-info small {
+  color: var(--ifm-color-emphasis-600);
+}
+
+.profile-signout-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--ifm-color-danger);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.profile-signout-btn:hover {
+  background-color: var(--ifm-color-danger-dark);
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .profile-trigger {
+  background-color: var(--ifm-background-surface-color);
+}
+
+[data-theme='dark'] .profile-menu {
+  background-color: var(--ifm-background-surface-color);
+}

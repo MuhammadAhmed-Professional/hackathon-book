@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(test:*)",
+      "Bash(curl:*)",
+      "Bash(pip install:*)",
+      "Bash(xargs rm -rf)",
+      "Bash(npm test:*)",
+      "Bash(timeout 30 bash:*)",
+      "Bash(timeout 15 bash:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 90 bash:*)",
+      "Bash(timeout 60 bash:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

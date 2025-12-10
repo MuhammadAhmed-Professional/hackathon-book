@@ -1,0 +1,77 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "gh-pages", "main" ]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Set environment variables for tests
+      run: |
+        echo "BETTER_AUTH_SECRET=test-secret-for-ci" >> $GITHUB_ENV
+        echo "OPENAI_API_KEY=test-key" >> $GITHUB_ENV
+        echo "QDRANT_URL=http://localhost:6333" >> $GITHUB_ENV
+        echo "QDRANT_API_KEY=test-key" >> $GITHUB_ENV
+        echo "NEON_DATABASE_URL=postgresql://test:test@localhost/test" >> $GITHUB_ENV
+
+    - name: Run backend tests
+      run: |
+        cd backend
+        pytest tests/test_api_basic.py -v --no-cov
+
+    - name: Test results
+      if: always()
+      run: echo "Backend tests completed"
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        npm test -- --no-coverage --passWithNoTests
+
+    - name: Test results
+      if: always()
+      run: echo "Frontend tests completed"

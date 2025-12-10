@@ -1,0 +1,245 @@
+openapi: 3.0.3
+info:
+  title: Hackathon App RAG Chatbot API
+  description: FastAPI backend for RAG-based chatbot answering questions about the Docusaurus book
+  version: 1.0.0
+  contact:
+    name: Hackathon Team
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server (TBD)
+
+paths:
+  /ping:
+    get:
+      summary: Health check endpoint
+      description: Returns API health status
+      operationId: healthCheck
+      tags:
+        - Health
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /ingest:
+    post:
+      summary: Ingest book content into vector database
+      description: Processes all book chapters, chunks text, creates embeddings, and stores in Qdrant
+      operationId: ingestBook
+      tags:
+        - Ingestion
+      responses:
+        '200':
+          description: Ingestion completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+        '500':
+          description: Ingestion failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /ask:
+    post:
+      summary: Ask a question using RAG
+      description: Answers a question about the book using RAG (Retrieval-Augmented Generation)
+      operationId: askQuestion
+      tags:
+        - Chatbot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AskRequest'
+      responses:
+        '200':
+          description: Answer generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AskResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /ask_selected:
+    post:
+      summary: Ask a question about selected text
+      description: Answers a question using only the provided selected text context (no RAG query)
+      operationId: askSelectedText
+      tags:
+        - Chatbot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AskSelectedRequest'
+      responses:
+        '200':
+          description: Answer generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AskResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "ok"
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-01-27T12:00:00Z"
+
+    IngestResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        chunks_ingested:
+          type: integer
+          description: Number of chunks created and stored
+          example: 342
+        chapters_processed:
+          type: integer
+          description: Number of chapters processed
+          example: 7
+        timestamp:
+          type: string
+          format: date-time
+
+    AskRequest:
+      type: object
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          description: The user's question about the book
+          minLength: 1
+          maxLength: 1000
+          example: "What is RAG and how does it work?"
+        session_id:
+          type: string
+          description: Optional session identifier for conversation tracking
+          example: "session-123"
+
+    AskSelectedRequest:
+      type: object
+      required:
+        - question
+        - context
+      properties:
+        question:
+          type: string
+          description: The user's question about the selected text
+          minLength: 1
+          maxLength: 1000
+          example: "Can you explain this concept in simpler terms?"
+        context:
+          type: string
+          description: The selected text from the book
+          minLength: 10
+          maxLength: 5000
+          example: "RAG stands for Retrieval-Augmented Generation..."
+        session_id:
+          type: string
+          description: Optional session identifier
+          example: "session-123"
+
+    AskResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+          description: The generated answer
+          example: "RAG (Retrieval-Augmented Generation) is a technique that combines information retrieval with language model generation..."
+        sources:
+          type: array
+          description: List of source citations (chunks used)
+          items:
+            $ref: '#/components/schemas/SourceCitation'
+        model_used:
+          type: string
+          description: OpenAI model identifier used for generation
+          example: "gpt-4"
+        timestamp:
+          type: string
+          format: date-time
+
+    SourceCitation:
+      type: object
+      properties:
+        chunk_id:
+          type: string
+          description: Unique identifier of the source chunk
+          example: "chunk-intro-001"
+        chapter_id:
+          type: string
+          description: Chapter identifier for display
+          example: "rag-fundamentals"
+        relevance_score:
+          type: number
+          format: float
+          description: Similarity score from vector search (0.0-1.0)
+          minimum: 0.0
+          maximum: 1.0
+          example: 0.87
+        snippet:
+          type: string
+          description: Preview text from the chunk
+          example: "RAG combines retrieval of relevant information with generation..."
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Failed to retrieve relevant chunks from vector database"
+        error_code:
+          type: string
+          description: Error code for programmatic handling
+          example: "QDRANT_QUERY_FAILED"
+        timestamp:
+          type: string
+          format: date-time
+

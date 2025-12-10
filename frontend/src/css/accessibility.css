@@ -1,0 +1,581 @@
+/**
+ * Accessibility Enhancements - Physical AI Textbook Platform
+ *
+ * This file provides global accessibility improvements to ensure
+ * WCAG 2.1 Level AA compliance across the entire application.
+ *
+ * Key areas covered:
+ * - Focus management and visible focus indicators
+ * - Keyboard navigation support
+ * - Touch target sizes
+ * - Screen reader optimizations
+ * - Color contrast enforcement
+ * - Motion preferences
+ */
+
+/* ============================================
+   FOCUS MANAGEMENT
+   ============================================ */
+
+/**
+ * Global focus styles for interactive elements
+ * - 2px solid outline (WCAG 2.4.7 Focus Visible)
+ * - 2px offset for clarity
+ * - High contrast color
+ */
+
+/* Reset browser default focus styles */
+*:focus {
+  outline: none;
+}
+
+/* Apply custom focus-visible styles (keyboard navigation only) */
+*:focus-visible {
+  outline: 2px solid var(--color-primary, #667eea);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 4px);
+}
+
+/* Enhanced focus for buttons */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--color-primary, #667eea);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+/* Focus within for compound components */
+.has-focus-within:focus-within {
+  outline: 2px solid var(--color-primary, #667eea);
+  outline-offset: 2px;
+}
+
+/* High contrast focus for critical actions */
+.btn-primary:focus-visible,
+.btn-danger:focus-visible,
+[type="submit"]:focus-visible {
+  outline-width: 3px;
+  outline-offset: 3px;
+}
+
+/* ============================================
+   TOUCH TARGET SIZES (WCAG 2.5.5)
+   Minimum 44x44px for touch targets
+   ============================================ */
+
+/* Ensure all interactive elements meet minimum touch target size */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+[role="button"],
+[role="link"],
+[role="checkbox"],
+[role="radio"],
+[tabindex="0"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Exception: When inside a larger clickable area */
+.touch-target-parent > *,
+.btn-group > * {
+  min-height: auto;
+  min-width: auto;
+}
+
+/* Ensure adequate spacing between adjacent touch targets */
+.touch-target-spacing > * + * {
+  margin-left: var(--space-2, 8px);
+}
+
+/* Text inputs have sufficient height */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+  min-height: 44px;
+  padding: var(--space-3, 12px);
+}
+
+/* ============================================
+   KEYBOARD NAVIGATION
+   ============================================ */
+
+/* Skip to main content link (hidden until focused) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--color-primary, #667eea);
+  color: white;
+  padding: var(--space-3, 12px) var(--space-6, 24px);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold, 600);
+  z-index: var(--z-tooltip, 10000);
+  border-radius: var(--radius-md, 8px);
+  transition: top var(--transition-fast, 150ms ease);
+}
+
+.skip-link:focus {
+  top: var(--space-4, 16px);
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Ensure keyboard focus is visible in dropdowns */
+[role="menu"] [role="menuitem"]:focus,
+[role="listbox"] [role="option"]:focus,
+select option:focus {
+  background-color: var(--color-primary-light, #e9d5ff);
+  outline: 2px solid var(--color-primary, #667eea);
+}
+
+/* Visible focus for radio and checkbox inputs */
+input[type="radio"]:focus-visible,
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--color-primary, #667eea);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+/* ============================================
+   SCREEN READER UTILITIES
+   ============================================ */
+
+/* Visually hidden but accessible to screen readers */
+.sr-only,
+.visually-hidden,
+.screen-reader-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border-width: 0 !important;
+}
+
+/* Focusable version (becomes visible when focused) */
+.sr-only-focusable:focus,
+.visually-hidden-focusable:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: initial !important;
+  margin: initial !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+/* Announce changes to screen readers (live regions) */
+[role="status"],
+[role="alert"],
+[aria-live="polite"],
+[aria-live="assertive"] {
+  position: relative;
+  /* Screen readers will announce content changes */
+}
+
+/* ============================================
+   COLOR CONTRAST ENFORCEMENT
+   ============================================ */
+
+/* Ensure placeholder text meets minimum contrast (4.5:1) */
+::placeholder {
+  color: var(--color-text-muted, #6b7280);
+  opacity: 1; /* Override browser default opacity */
+}
+
+/* Ensure disabled states still meet 3:1 contrast for UI components */
+:disabled,
+[aria-disabled="true"],
+.disabled {
+  opacity: 0.7; /* Minimum to maintain 3:1 contrast */
+  cursor: not-allowed;
+}
+
+/* Link contrast - ensure 4.5:1 minimum */
+a {
+  color: var(--color-interactive, #2563eb);
+  text-decoration-color: currentColor;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-interactive-hover, #1d4ed8);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* Visited links should be distinguishable */
+a:visited {
+  color: var(--color-purple-700, #7e22ce);
+}
+
+/* ============================================
+   ERROR MESSAGES & VALIDATION
+   ============================================ */
+
+/* Ensure error messages are announced */
+.error-message,
+.validation-error,
+[role="alert"].error {
+  color: var(--color-error, #dc2626);
+  font-weight: var(--font-weight-medium, 500);
+  display: flex;
+  align-items: start;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px);
+  background: var(--color-error-light, #fee2e2);
+  border-left: 4px solid var(--color-error, #dc2626);
+  border-radius: var(--radius-md, 8px);
+  margin-top: var(--space-2, 8px);
+}
+
+/* Error icon for visual reinforcement */
+.error-message::before,
+.validation-error::before {
+  content: "⚠";
+  font-size: var(--font-size-lg, 1.125rem);
+  flex-shrink: 0;
+  /* Ensure error icon is hidden from screen readers (text already conveys error) */
+  aria-hidden: true;
+}
+
+/* Input error states */
+input:invalid,
+input[aria-invalid="true"],
+select:invalid,
+select[aria-invalid="true"],
+textarea:invalid,
+textarea[aria-invalid="true"] {
+  border-color: var(--color-error, #dc2626);
+  border-width: 2px;
+}
+
+input:invalid:focus,
+input[aria-invalid="true"]:focus,
+select:invalid:focus,
+select[aria-invalid="true"]:focus,
+textarea:invalid:focus,
+textarea[aria-invalid="true"]:focus {
+  outline-color: var(--color-error, #dc2626);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2);
+}
+
+/* ============================================
+   LOADING & SKELETON STATES
+   ============================================ */
+
+/* Announce loading states to screen readers */
+[aria-busy="true"],
+.loading {
+  cursor: wait;
+  position: relative;
+}
+
+/* Loading spinner accessibility */
+.spinner,
+.loading-indicator {
+  /* Add sr-only text: "Loading..." */
+}
+
+.spinner::after {
+  content: "Loading...";
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skeleton loading animation (respects prefers-reduced-motion) */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-200, #e5e7eb) 0%,
+    var(--color-gray-100, #f3f4f6) 50%,
+    var(--color-gray-200, #e5e7eb) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md, 8px);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================
+   MODALS & OVERLAYS
+   ============================================ */
+
+/* Ensure modal overlays trap focus */
+.modal-overlay,
+[role="dialog"],
+[role="alertdialog"] {
+  /* Focus trap should be implemented in JS */
+}
+
+/* Modal backdrop for click-outside-to-close */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-modal-backdrop, 9996);
+  /* Ensure backdrop doesn't interfere with screen readers */
+  aria-hidden: true;
+}
+
+/* Modal content should be focusable */
+.modal-content,
+[role="dialog"],
+[role="alertdialog"] {
+  position: relative;
+  z-index: var(--z-modal, 9997);
+  /* First focusable element will receive focus on open */
+}
+
+/* ============================================
+   REDUCED MOTION PREFERENCES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable skeleton animations */
+  .skeleton {
+    animation: none;
+    background: var(--color-gray-200, #e5e7eb);
+  }
+
+  /* Disable pulse/bounce animations */
+  .pulse,
+  .bounce,
+  .float {
+    animation: none !important;
+  }
+
+  /* Disable hover transforms */
+  *:hover {
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  /* Increase border widths for better visibility */
+  button,
+  input,
+  select,
+  textarea,
+  a {
+    border-width: 2px;
+  }
+
+  /* Ensure focus is very visible */
+  *:focus-visible {
+    outline-width: 3px;
+    outline-offset: 3px;
+  }
+
+  /* Remove subtle backgrounds */
+  .subtle-bg {
+    background: transparent;
+  }
+
+  /* Increase text contrast */
+  body,
+  p,
+  span,
+  div {
+    color: var(--color-text-primary, #111827);
+  }
+
+  [data-theme='dark'] {
+    color: var(--color-text-primary, #f9fafb);
+  }
+}
+
+/* ============================================
+   PRINT STYLES (Accessibility for print)
+   ============================================ */
+
+@media print {
+  /* Expand all collapsed content for print */
+  details,
+  [aria-expanded="false"] {
+    display: block !important;
+  }
+
+  /* Show URLs after links */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.875em;
+    color: var(--color-text-secondary, #374151);
+  }
+
+  /* Don't show URLs for anchor links */
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  /* Hide decorative images */
+  img[alt=""],
+  img[role="presentation"] {
+    display: none;
+  }
+
+  /* Ensure good contrast for print */
+  body {
+    background: white;
+    color: black;
+  }
+
+  /* Avoid page breaks inside important elements */
+  h1, h2, h3, h4, h5, h6,
+  p, li, blockquote,
+  .card, .message {
+    page-break-inside: avoid;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TEXT SIZING
+   ============================================ */
+
+/* Allow users to zoom text up to 200% (WCAG 1.4.4) */
+html {
+  /* Don't prevent user zoom */
+  /* DO NOT use: user-scalable=no or maximum-scale=1 in viewport meta tag */
+}
+
+/* Ensure text doesn't overflow at 200% zoom */
+.container,
+.content,
+.main {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* ============================================
+   FORM ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/* Ensure all form fields have associated labels */
+label {
+  display: block;
+  margin-bottom: var(--space-2, 8px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary, #111827);
+}
+
+/* Required field indicator */
+.required::after,
+[required] + label::after {
+  content: " *";
+  color: var(--color-error, #dc2626);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+/* Field hints/help text */
+.field-hint,
+.help-text,
+[id$="-help"] {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-muted, #6b7280);
+  margin-top: var(--space-1, 4px);
+  display: block;
+}
+
+/* Group related form fields */
+fieldset {
+  border: 1px solid var(--color-border-base, #d1d5db);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-4, 16px);
+  margin-bottom: var(--space-4, 16px);
+}
+
+legend {
+  font-weight: var(--font-weight-semibold, 600);
+  font-size: var(--font-size-lg, 1.125rem);
+  padding: 0 var(--space-2, 8px);
+}
+
+/* ============================================
+   TABLE ACCESSIBILITY
+   ============================================ */
+
+/* Ensure tables have proper headers */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  font-weight: var(--font-weight-semibold, 600);
+  background: var(--color-background-muted, #f3f4f6);
+  padding: var(--space-3, 12px);
+  border-bottom: 2px solid var(--color-border-base, #d1d5db);
+}
+
+td {
+  padding: var(--space-3, 12px);
+  border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+}
+
+/* Ensure table captions are visible */
+caption {
+  font-weight: var(--font-weight-semibold, 600);
+  font-size: var(--font-size-lg, 1.125rem);
+  text-align: left;
+  padding-bottom: var(--space-3, 12px);
+  caption-side: top;
+}
+
+/* Responsive tables (scroll on mobile) */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
