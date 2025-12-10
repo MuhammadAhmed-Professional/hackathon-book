@@ -37,6 +37,10 @@ See [specs/001-hackathon-app/quickstart.md](specs/001-hackathon-app/quickstart.m
 - **AI Services**: OpenAI (Agents SDK, ChatKit SDK)
 - **Deployment**: GitHub Pages
 
+## Live Deployment
+
+🌐 **Live Site**: https://MuhammadAhmed-Professional.github.io/hackathon-book/
+
 ## Development
 
 ### Prerequisites
