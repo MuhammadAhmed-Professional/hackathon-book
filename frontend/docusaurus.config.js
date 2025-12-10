@@ -11,10 +11,10 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // GitHub Pages configuration
-  url: 'https://demolinator.github.io', // GitHub username
-  baseUrl: '/Agentic-Book/', // Repository name
-  organizationName: 'Demolinator', // GitHub username
-  projectName: 'Agentic-Book', // Repository name
+  url: 'https://MuhammadAhmed-Professional.github.io', // GitHub username
+  baseUrl: '/hackathon-book/', // Repository name
+  organizationName: 'MuhammadAhmed-Professional', // GitHub username
+  projectName: 'hackathon-book', // Repository name
   deploymentBranch: 'gh-pages', // Branch for deployment
 
   onBrokenLinks: 'throw',
@@ -38,7 +38,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/talal/Hackathon/tree/002-physical-ai-book/frontend/',
+          editUrl: 'https://github.com/MuhammadAhmed-Professional/hackathon-book/tree/master/frontend/',
           // Temporarily exclude Module 4 files with math expression errors
           exclude: [
             '**/module4/sensor-fusion.md',
@@ -80,7 +80,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/talal/Hackathon',
+            href: 'https://github.com/MuhammadAhmed-Professional/hackathon-book',
             label: 'GitHub',
             position: 'right',
           },
@@ -132,11 +132,11 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/talal/Hackathon',
+                href: 'https://github.com/MuhammadAhmed-Professional/hackathon-book',
               },
               {
                 label: 'Hackathon Submission',
-                href: 'https://github.com/talal/Hackathon/tree/002-physical-ai-book',
+                href: 'https://github.com/MuhammadAhmed-Professional/hackathon-book',
               },
             ],
           },
